@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import express, { urlencoded, json } from "express";
-
+import cors from "cors";
+ 
 import logins from "./routes/logins.js";
 import rateLimit from "express-rate-limit";
 
@@ -16,7 +17,7 @@ const app = express();
 const BASE_URL = "api";
 
 const PORT = process.env.PORT;
-
+app.use(cors());
 app.use(urlencoded({ extended: false }));
 app.use(json());
 app.use(limiter);
