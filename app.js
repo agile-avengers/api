@@ -13,10 +13,9 @@ const limiter = rateLimit({
 dotenv.config();
 
 const app = express();
-const router = express.Router();
+app.use(cors());
 
 // Enable CORS for the /logins route
-router.use(cors());
 const BASE_URL = "api";
 
 const PORT = process.env.PORT;
