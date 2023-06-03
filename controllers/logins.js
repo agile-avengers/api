@@ -52,7 +52,7 @@ const loginSchema = Joi.object({
       const {email, password } = value; // destructuring validated object
   
       await prisma.login.create({
-        data: {  email, password },
+        data: {email, password },
       });
   
       const newLogins = await prisma.login.findMany();
