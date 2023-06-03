@@ -9,14 +9,12 @@ const getLogins = async (req, res) => {
       
     };
 
-    if (req.query.email || req.query.name ) {
+    if (req.query.email) {
       query.where = {
         email: {
           in: req.query.email || undefined,
         },
-        name: {
-          in: req.query.name || undefined,
-        },
+       
       
       };
     }
@@ -37,7 +35,6 @@ const getLogins = async (req, res) => {
   }
 };
 const loginSchema = Joi.object({
-    name: Joi.string().required(),
     email: Joi.string().required(),
     password: Joi.string().required(),
   });
@@ -52,10 +49,10 @@ const loginSchema = Joi.object({
         });
       }
   
-      const { name, email, password } = value; // destructuring validated object
+      const {email, password } = value; // destructuring validated object
   
       await prisma.login.create({
-        data: { name, email, password },
+        data: {  email, password },
       });
   
       const newLogins = await prisma.login.findMany();
@@ -73,7 +70,7 @@ const loginSchema = Joi.object({
   const upDateLogin = async (req, res) => {
     try {
       const { id } = req.params;
-      const { name, email, password } = req.body;
+      const {  email, password } = req.body;
   
       let login = await prisma.login.findUnique({
         where: { id: Number(id) },
@@ -87,7 +84,7 @@ const loginSchema = Joi.object({
   
       login = await prisma.login.update({
         where: { id: Number(id) },
-        data: { name, email, password },
+        data: {  email, password },
       });
   
       return res.json({
